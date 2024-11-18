@@ -1,0 +1,33 @@
+package br.com.certacon.restful_api_java;
+
+import br.com.certacon.restful_api_java.converters.NumberConverter;
+import br.com.certacon.restful_api_java.exceptions.UnsupportedMathOperationException;
+import br.com.certacon.restful_api_java.math.SimpleMath;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.concurrent.atomic.AtomicLong;
+
+import static br.com.certacon.restful_api_java.converters.NumberConverter.convertToDouble;
+
+@RestController
+
+public class MathController {
+    private final AtomicLong counter = new AtomicLong();
+
+    private SimpleMath simpleMath = new SimpleMath();
+    public MathController() {
+    }
+
+    @RequestMapping(value = "/sum/{numberOne}/{numberTwo}", method=RequestMethod.GET)
+    public Double sum(@PathVariable(value = "numberOne") String numberOne,
+                      @PathVariable(value = "numberTwo") String numberTwo
+    ) throws Exception{
+        if (!NumberConverter.isNumeric(numberOne) || !NumberConverter.isNumeric(numberTwo)) {
+            throw new UnsupportedMathOperationException("Please set a numeric value");
+        }
+        return simpleMath.sum(NumberConverter.convertToDouble(numberOne), NumberConverter.convertToDouble(numberTwo));
+    }
+}
