@@ -1,13 +1,27 @@
 package br.com.certacon.restful_api_java.model;
 
-import java.io.Serializable;
-import java.util.Objects;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
+
+@Entity
+@Table(name = "person")
 public class Person implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "first_name", nullable = false, length = 80)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 80)
     private String lastName;
-    private String adress;
+
+    @Column(nullable = false, length = 100)
+    private String address;
+
+    @Column(nullable = false, length = 6)
     private String gender;
 
     public Person() {
@@ -37,12 +51,12 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getGender() {
@@ -57,7 +71,7 @@ public class Person implements Serializable {
     public final boolean equals(Object o) {
         if (!(o instanceof Person person)) return false;
 
-        return id == person.id && firstName.equals(person.firstName) && lastName.equals(person.lastName) && adress.equals(person.adress) && gender.equals(person.gender);
+        return id == person.id && firstName.equals(person.firstName) && lastName.equals(person.lastName) && address.equals(person.address) && gender.equals(person.gender);
     }
 
     @Override
@@ -65,7 +79,7 @@ public class Person implements Serializable {
         int result = Long.hashCode(id);
         result = 31 * result + firstName.hashCode();
         result = 31 * result + lastName.hashCode();
-        result = 31 * result + adress.hashCode();
+        result = 31 * result + address.hashCode();
         result = 31 * result + gender.hashCode();
         return result;
     }
