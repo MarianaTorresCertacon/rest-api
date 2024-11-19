@@ -2,6 +2,7 @@ package br.com.certacon.restful_api_java.controllers;
 
 import br.com.certacon.restful_api_java.services.PersonServices;
 import br.com.certacon.restful_api_java.vo.v1.PersonVO;
+import br.com.certacon.restful_api_java.vo.v2.PersonVOV2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,12 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonVO create(@RequestBody PersonVO person){
         return service.create(person);
+    }
+
+    @PostMapping(value = "/v2", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonVO createV2(@RequestBody PersonVOV2 person){
+        return createV2(person);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,

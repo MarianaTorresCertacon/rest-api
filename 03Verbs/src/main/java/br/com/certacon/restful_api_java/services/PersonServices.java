@@ -1,10 +1,12 @@
 package br.com.certacon.restful_api_java.services;
 
 import br.com.certacon.restful_api_java.exceptions.ResourceNotFoundException;
+import br.com.certacon.restful_api_java.mapper.PersonMapper;
 import br.com.certacon.restful_api_java.model.Person;
 import br.com.certacon.restful_api_java.repositories.PersonRepository;
 import br.com.certacon.restful_api_java.vo.v1.ModelMapperUtils;
 import br.com.certacon.restful_api_java.vo.v1.PersonVO;
+import br.com.certacon.restful_api_java.vo.v2.PersonVOV2;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class PersonServices {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    PersonMapper mapper;
 
     public List<PersonVO> findAll() {
         logger.info("Finding all people");
@@ -43,6 +48,30 @@ public class PersonServices {
         var vo = modelMapper.map(repository.save(entity), PersonVO.class);
         return vo;
     }
+
+//    public PersonVO createV2(PersonVOV2 person) {
+//        logger.info("Creating one person");
+//        ModelMapper modelMapper = new ModelMapper();
+//        var entity = modelMapper.map(person, Person.class);
+//        var vo = modelMapper.map(repository.save(entity), PersonVOV2.class);
+//        return vo;
+//    }
+
+    public PersonVOV2 createV2(PersonVOV2 person) {
+        logger.info("Creating a new version 2 person");
+        // Initialize ModelMapper instance
+//        ModelMapper modelMapper = new ModelMapper();
+        // Map the V2 DTO to the entity (e.g., handle different fields for the new table)
+        var entity = mapper.convertVoToEntity(person);
+        // Save the entity to the repository
+        var vo = mapper.convertEntityToVo(repository.save(entity));
+        // Map the saved entity back to V2 VO
+//        PersonVOV2 vo = modelMapper.map(savedEntity, PersonVOV2.class);
+        return vo;
+    }
+
+
+
 
     public PersonVO update(PersonVO person) {
         logger.info("Creating one person");
