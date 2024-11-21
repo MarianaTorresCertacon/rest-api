@@ -3,12 +3,16 @@ package br.com.certacon.restful_api_java.vo.v1;
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.web.bind.annotation.Mapping;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @JsonPropertyOrder({"id", "gender", "firstName", "lastName", "address"})
-public class PersonVO implements Serializable {
+public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
 
+    @JsonProperty("id")
     private long id;
 
     @JsonProperty("first_name")
@@ -64,18 +68,23 @@ public class PersonVO implements Serializable {
         this.gender = gender;
     }
 
-    public final boolean equals(Object o) {
-        if (!(o instanceof PersonVO person)) return false;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
-        return id == person.id && firstName.equals(person.firstName) && lastName.equals(person.lastName) && address.equals(person.address) && gender.equals(person.gender);
+        PersonVO personVO = (PersonVO) o;
+        return getId() == personVO.getId() && Objects.equals(getFirstName(), personVO.getFirstName()) && Objects.equals(getLastName(), personVO.getLastName()) && Objects.equals(getAddress(), personVO.getAddress()) && Objects.equals(getGender(), personVO.getGender());
     }
 
+    @Override
     public int hashCode() {
-        int result = Long.hashCode(id);
-        result = 31 * result + firstName.hashCode();
-        result = 31 * result + lastName.hashCode();
-        result = 31 * result + address.hashCode();
-        result = 31 * result + gender.hashCode();
+        int result = super.hashCode();
+        result = 31 * result + Long.hashCode(getId());
+        result = 31 * result + Objects.hashCode(getFirstName());
+        result = 31 * result + Objects.hashCode(getLastName());
+        result = 31 * result + Objects.hashCode(getAddress());
+        result = 31 * result + Objects.hashCode(getGender());
         return result;
     }
 }
