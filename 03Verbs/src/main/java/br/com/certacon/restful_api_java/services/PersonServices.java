@@ -56,22 +56,13 @@ public class PersonServices {
 //        var vo = modelMapper.map(repository.save(entity), PersonVOV2.class);
 //        return vo;
 //    }
-
-    public PersonVOV2 createV2(PersonVOV2 person) {
-        logger.info("Creating a new version 2 person");
-        // Initialize ModelMapper instance
-//        ModelMapper modelMapper = new ModelMapper();
-        // Map the V2 DTO to the entity (e.g., handle different fields for the new table)
-        var entity = mapper.convertVoToEntity(person);
-        // Save the entity to the repository
-        var vo = mapper.convertEntityToVo(repository.save(entity));
-        // Map the saved entity back to V2 VO
-//        PersonVOV2 vo = modelMapper.map(savedEntity, PersonVOV2.class);
-        return vo;
-    }
-
-
-
+//
+//    public PersonVOV2 createV2(PersonVOV2 person) {
+//        logger.info("Creating a new version 2 person");
+//        var entity = mapper.convertVoToEntity(person);
+//        var vo = mapper.convertEntityToVo(repository.save(entity));
+//        return vo;
+//    }
 
     public PersonVO update(PersonVO person) {
         logger.info("Creating one person");

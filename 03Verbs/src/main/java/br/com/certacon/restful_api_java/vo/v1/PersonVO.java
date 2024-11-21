@@ -1,12 +1,23 @@
 package br.com.certacon.restful_api_java.vo.v1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.io.Serializable;
 
+@JsonPropertyOrder({"id", "gender", "firstName", "lastName", "address"})
 public class PersonVO implements Serializable {
 
     private long id;
+
+    @JsonProperty("first_name")
     private String firstName;
+
+    @JsonProperty("last_name")
     private String lastName;
+
+//    @JsonIgnore
     private String address;
     private String gender;
 

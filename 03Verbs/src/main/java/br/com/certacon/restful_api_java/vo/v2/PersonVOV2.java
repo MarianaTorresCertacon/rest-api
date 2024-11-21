@@ -1,8 +1,11 @@
 package br.com.certacon.restful_api_java.vo.v2;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+
 
 public class PersonVOV2 implements Serializable {
 
@@ -11,12 +14,6 @@ public class PersonVOV2 implements Serializable {
     private String lastName;
     private String address;
     private String gender;
-    private Date birthday;
-
-
-    public Date getBirthday() {return birthday;}
-
-    public void setBirthday(Date birthday) {this.birthday = birthday;}
 
     public PersonVOV2() {
     }
@@ -66,7 +63,7 @@ public class PersonVOV2 implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         PersonVOV2 that = (PersonVOV2) o;
-        return getId() == that.getId() && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getGender(), that.getGender()) && Objects.equals(getBirthday(), that.getBirthday());
+        return getId() == that.getId() && Objects.equals(getFirstName(), that.getFirstName()) && Objects.equals(getLastName(), that.getLastName()) && Objects.equals(getAddress(), that.getAddress()) && Objects.equals(getGender(), that.getGender());
     }
 
     @Override
@@ -76,7 +73,6 @@ public class PersonVOV2 implements Serializable {
         result = 31 * result + Objects.hashCode(getLastName());
         result = 31 * result + Objects.hashCode(getAddress());
         result = 31 * result + Objects.hashCode(getGender());
-        result = 31 * result + Objects.hashCode(getBirthday());
         return result;
     }
 }
