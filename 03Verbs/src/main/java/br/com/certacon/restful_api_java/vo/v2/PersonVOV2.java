@@ -11,9 +11,9 @@ public class PersonVOV2 implements Serializable {
 
     private long id;
     private String firstName;
-    private String lastName;
-    private String address;
     private String gender;
+    private String address;
+    private String lastName;
 
     public PersonVOV2() {
     }
