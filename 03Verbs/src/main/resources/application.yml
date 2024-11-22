@@ -17,3 +17,7 @@ spring:
 logging:
   level:
     org.springframework.web: DEBUG
+springdoc:
+  pathsToMatch: /**/v1/**
+  swagger-ui:
+    use-root-path: true
